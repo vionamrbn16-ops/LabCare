@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LabCare IT | Ticketing System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+  <style>
+    :root {
+      --bg: #071426;
+      --panel: #0d2038;
+      --blue: #3984ff;
+      --cyan: #58e1ed;
+      --text: #f5f9ff;
+      --muted: #9aadc6;
+      --border: rgba(255, 255, 255, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 10%, #123c69 0, transparent 42%),
+        radial-gradient(ellipse at 90% 90%, #102b54 0, transparent 38%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      max-width: 1440px;
+      margin: auto;
+      padding: 42px 7%;
+      gap: 7%;
+    }
+
+    /* BRAND */
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #06172c;
+      background: linear-gradient(135deg, var(--cyan), #77aaff);
+      box-shadow: 0 0 28px #58e1ed30;
+      font-size: 25px;
+    }
+
+    .brand span span {
+      color: var(--cyan);
+    }
+
+    .tagline {
+      margin-top: 7px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 1.4px;
+    }
+
+    /* LEFT SIDE */
+
+    .hero {
+      padding: 10px 0;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 75px;
+      padding: 9px 13px;
+      border: 1px solid #58e1ed45;
+      border-radius: 30px;
+      background: #58e1ed0c;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #52e3b1;
+      box-shadow: 0 0 10px #52e3b1;
+    }
+
+    .hero h1 {
+      margin: 25px 0 20px;
+      max-width: 600px;
+      font-size: clamp(38px, 4.7vw, 65px);
+      line-height: 1.12;
+      letter-spacing: -2.7px;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      color: var(--cyan);
+      background: linear-gradient(90deg, #61e3ee, #7baaff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      max-width: 470px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 14px;
+    }
+
+    .features {
+      display: grid;
+      gap: 19px;
+      margin-top: 35px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: #dce9f9;
+      font-size: 13px;
+    }
+
+    .feature-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #ffffff08;
+      color: var(--cyan);
+      font-size: 17px;
+    }
+
+    .hero-footer {
+      margin-top: 65px;
+      color: #7288a5;
+      font-size: 11px;
+    }
+
+    /* AUTH CARD */
+
+    .auth-area {
+      width: 100%;
+      max-width: 450px;
+      justify-self: end;
+    }
+
+    .auth-card {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, #122844eF, #0b1a30f5);
+      box-shadow: 0 30px 90px #00000038;
+      backdrop-filter: blur(20px);
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12%;
+      width: 76%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--blue), transparent);
+    }
+
+    .auth-heading {
+      margin-bottom: 26px;
+    }
+
+    .auth-heading .eyebrow {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .auth-heading h2 {
+      margin-top: 12px;
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+
+    .auth-heading p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* TABS */
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 5px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      background: #061426;
+    }
+
+    .tab {
+      padding: 12px;
+      border: 0;
+      border-radius: 9px;
+      color: #8fa4c0;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tab.active {
+      color: white;
+      background: linear-gradient(100deg, #2869d9, #3886ff);
+      box-shadow: 0 5px 18px #3984ff30;
+    }
+
+    /* INPUT */
+
+    .form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form[hidden] {
+      display: none;
+    }
+
+    .field {
+      display: grid;
+      gap: 9px;
+    }
+
+    .field label {
+      color: #d9e5f5;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #ffffff18;
+      border-radius: 11px;
+      outline: none;
+      background: #061629a8;
+      color: white;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .field input::placeholder {
+      color: #70839e;
+    }
+
+    .field input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px #58e1ed13;
+    }
+
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 5px;
+      padding: 15px;
+      border: 0;
+      border-radius: 11px;
+      background: linear-gradient(100deg, #2870e8, #3989ff);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px #3984ff27;
+      transition: .2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px #3984ff40;
+    }
+
+    .form-note {
+      color: #8da2bd;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .security {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: #8196b1;
+      font-size: 10px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .security span {
+      color: var(--cyan);
+    }
+
+    .notice {
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 9px;
+      background: #183c60;
+      color: #b9eff7;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 950px) {
+      .page {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        max-width: 600px;
+        padding: 30px 24px;
+      }
+
+      .hero-label {
+        margin-top: 35px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-footer {
+        margin-top: 30px;
+      }
+
+      .auth-area {
+        justify-self: stretch;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 22px 16px;
+        gap: 30px;
+      }
+
+      .hero h1 {
+        font-size: 35px;
+        letter-spacing: -1.5px;
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .auth-card {
+        padding: 24px 19px;
+        border-radius: 19px;
+      }
+
+      .auth-heading h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- BAGIAN INFORMASI -->
+    <section class="hero">
+
+      <div class="brand">
+        <div class="logo">✦</div>
+        <div>
+          <span>LabCare <span>IT</span></span>
+          <p class="tagline">TICKETING LABORATORIUM TJKT</p>
+        </div>
+      </div>
+
+      <div class="hero-label">
+        <span class="online-dot"></span>
+        IT SUPPORT PORTAL
+      </div>
+
+      <h1>
+        Your IT problems,<br>
+        <span class="gradient-text">our priority.</span>
+      </h1>
+
+      <p class="hero-description">
+        Pusat layanan pelaporan masalah teknologi laboratorium.
+        Buat tiket, pantau status perbaikan, dan dapatkan informasi
+        terbaru dari tim admin LabCare IT.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">▤</div>
+          <div>
+            <strong>Pelaporan Terstruktur</strong>
+            <p class="tagline">Setiap kendala tercatat dalam tiket.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">↗</div>
+          <div>
+            <strong>Pembaruan Status</strong>
+            <p class="tagline">Pantau progres laporan dengan mudah.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">⌘</div>
+          <div>
+            <strong>Untuk Siswa dan Guru</strong>
+            <p class="tagline">Satu portal untuk layanan TJKT.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-footer">
+        © 2026 LabCare IT · Smart Laboratory Service
+      </p>
+    </section>
+
+    <!-- BAGIAN LOGIN -->
+    <section class="auth-area">
+      <div class="auth-card">
+
+        <header class="auth-heading">
+          <span class="eyebrow">WELCOME BACK</span>
+          <h2 id="title">Selamat datang 👋</h2>
+          <p id="subtitle">
+            Masuk ke akunmu untuk mengakses layanan ticketing.
+          </p>
+        </header>
+
+        <div class="tabs">
+          <button class="tab active" id="login-tab" type="button">
+            Masuk
+          </button>
+          <button class="tab" id="register-tab" type="button">
+            Daftar akun
+          </button>
+        </div>
+
+        <div class="notice" id="notice" role="status" hidden></div>
+
+        <form class="form" id="login-form">
+          <div class="field">
+            <label for="login-email">Alamat email</label>
+            <input type="email" id="login-email" placeholder="nama@email.com" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Masukkan password" autocomplete="current-password"
+              required>
+          </div>
+
+          <button class="submit-btn" type="submit">
+            Masuk ke LabCare <span>→</span>
+          </button>
+
+          <p class="form-note">
+            Belum punya akun? Pilih Daftar akun di atas.
+          </p>
+        </form>
+
+        <form class="form" id="register-form" hidden>
+          <div class="field">
+            <label for="register-name">Nama lengkap</label>
+            <input type="text" id="register-name" placeholder="Nama siswa atau guru" autocomplete="name" maxlength="100"
+              required>
+          </div>
+
+          <div class="field">
+            <label for="register-email">Alamat email</label>
+            <input type="email" id="register-email" placeholder="nama@email.com" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="register-password">Buat password</label>
+            <input type="password" id="register-password" placeholder="Minimal 8 karakter" autocomplete="new-password"
+              minlength="8" required>
+          </div>
+
+          <button class="submit-btn" type="submit">
+            Buat akun <span>→</span>
+          </button>
+
+          <p class="form-note">
+            Ikuti petunjuk konfirmasi email jika diminta.
+          </p>
+        </form>
+
+        <div class="security">
+          <span>◆</span>
+          <p>Akses admin dikelola secara khusus dan tidak dapat dipilih melalui pendaftaran umum.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const loginTab = document.getElementById("login-tab");
+    const registerTab = document.getElementById("register-tab");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+
+    loginTab.addEventListener("click", () => {
+      loginForm.hidden = false;
+      registerForm.hidden = true;
+
+      loginTab.classList.add("active");
+      registerTab.classList.remove("active");
+
+      title.textContent = "Selamat datang 👋";
+      subtitle.textContent =
+        "Masuk ke akunmu untuk mengakses layanan ticketing.";
+    });
+
+    registerTab.addEventListener("click", () => {
+      loginForm.hidden = true;
+      registerForm.hidden = false;
+
+      registerTab.classList.add("active");
+      loginTab.classList.remove("active");
+
+      title.textContent = "Buat akun baru";
+      subtitle.textContent =
+        "Daftar untuk mulai menggunakan layanan LabCare IT.";
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+
+</body>
+
+</html>

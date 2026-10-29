@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pengguna | LabCare IT</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard {
+            width: min(1100px, 92%);
+            margin: auto;
+            padding: 30px 0 50px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+
+        .topbar h2 {
+            font-size: 24px;
+        }
+
+        .welcome {
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .logout {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 11px 16px;
+            border-radius: 10px;
+        }
+
+        .intro {
+            padding: 30px;
+            background: linear-gradient(120deg, #123653, #101d30);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-bottom: 28px;
+        }
+
+        .intro h1 {
+            font-size: clamp(25px, 4vw, 36px);
+            margin-bottom: 12px;
+        }
+
+        .intro p {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 18px;
+        }
+
+        .panel h2 {
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px;
+            color: var(--text);
+            background: #091525;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select option {
+            background: #101d30;
+        }
+
+        .ticket {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ticket:last-child {
+            border-bottom: none;
+        }
+
+        .ticket h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .ticket p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-top: 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: #3b2e15;
+            color: #facc15;
+        }
+
+        .status.done {
+            background: #123c2b;
+            color: #86efac;
+        }
+
+        .empty {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        @media(max-width: 760px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .panel,
+            .intro {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="dashboard">
+        <header class="topbar">
+            <div>
+                <div class="brand" style="margin-bottom:0">
+                    <div class="brand-icon">🖥️</div>
+                    <span>LabCare IT</span>
+                </div>
+                <p class="welcome" id="welcome">Memuat akun...</p>
+            </div>
+            <button class="logout" id="logout-btn" type="button">Keluar</button>
+        </header>
+
+        <section class="intro">
+            <h1>Dashboard Pelaporan Laboratorium</h1>
+            <p>Laporkan kendala komputer, jaringan, software, atau peralatan laboratorium TJKT. Tim IT akan memeriksa
+                laporan dan memperbarui status penanganannya.</p>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="panel">
+                <h2>📝 Buat Laporan Baru</h2>
+
+                <form id="ticket-form">
+                    <div class="form-group">
+                        <label for="reporter-name">Nama pelapor</label>
+                        <input id="reporter-name" type="text" placeholder="Nama lengkap" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporter-type">Jenis pelapor</label>
+                        <select id="reporter-type" required>
+                            <option value="">Pilih jenis pelapor</option>
+                            <option value="Siswa">Siswa</option>
+                            <option value="Guru">Guru</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-category">Kategori masalah</label>
+                        <select id="ticket-category" required>
+                            <option value="">Pilih kategori</option>
+                            <option value="Hardware">Hardware / komputer</option>
+                            <option value="Software">Software / aplikasi</option>
+                            <option value="Jaringan">Jaringan internet</option>
+                            <option value="Peralatan">Peralatan laboratorium</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-priority">Prioritas</label>
+                        <select id="ticket-priority" required>
+                            <option value="Rendah">Rendah</option>
+                            <option value="Sedang" selected>Sedang</option>
+                            <option value="Tinggi">Tinggi</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticket-description">Deskripsi masalah</label>
+                        <textarea id="ticket-description" placeholder="Jelaskan masalah dan lokasi perangkat..."
+                            required maxlength="2000"></textarea>
+                    </div>
+
+                    <button class="btn-primary" id="submit-ticket" type="submit">Kirim Laporan</button>
+                </form>
+            </section>
+
+            <section class="panel">
+                <h2>📋 Laporan Saya</h2>
+                <div id="ticket-list">
+                    <p class="empty">Memuat laporan...</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/user.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | LabCare IT</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            min-width: 0;
+            padding: 12px;
+            color: var(--text);
+            background: #091525;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .filter-bar input {
+            flex: 1;
+        }
+
+        .filter-bar select {
+            width: 170px;
+        }
+
+        @media (max-width: 600px) {
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .filter-bar select {
+                width: 100%;
+            }
+        }
+
+        .admin-wrap {
+            width: min(1200px, 94%);
+            margin: auto;
+            padding: 30px 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .admin-panel {
+            padding: 24px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow-x: auto;
+        }
+
+        .admin-panel h1 {
+            margin-bottom: 10px;
+        }
+
+        .admin-panel>p {
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .ticket-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        .ticket-table th,
+        .ticket-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+            font-size: 13px;
+        }
+
+        .ticket-table th {
+            color: var(--primary);
+        }
+
+        .ticket-table select,
+        .ticket-table button {
+            padding: 9px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .ticket-table select {
+            background: #091525;
+            color: var(--text);
+        }
+
+        .ticket-table button {
+            background: var(--primary);
+            color: #07111f;
+            font-weight: 700;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="admin-wrap">
+        <header class="admin-header">
+            <div class="brand" style="margin:0">
+                <div class="brand-icon">🛠️</div>
+                <span>LabCare IT Admin</span>
+            </div>
+            <button class="logout" id="logout-btn" type="button">Keluar</button>
+        </header>
+
+        <section class="admin-panel">
+            <h1>Manajemen Tiket</h1>
+            <p>Kelola laporan laboratorium dan perbarui status penanganannya.</p>
+
+            <div class="filter-bar">
+                <input id="search-ticket" type="search" placeholder="Cari nomor tiket, nama, atau masalah...">
+
+                <select id="filter-status">
+                    <option value="">Semua status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+
+            <div id="message" class="muted">Memuat tiket...</div>
+
+
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Waktu</th>
+                        <th>Pelapor</th>
+                        <th>Masalah</th>
+                        <th>Prioritas</th>
+                        <th>Status</th>
+                        <th>Catatan Admin</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="ticket-rows"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
